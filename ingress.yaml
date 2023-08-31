@@ -1,0 +1,38 @@
+#@ load("@ytt:data", "data")
+
+---
+
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: where-for-dinner
+  namespace: #@ data.values.workloadNamespace
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - hosts:
+    - #@ 'where-for-dinner.' + data.values.domainName
+    port:
+      name: http
+      number: 80
+      protocol: HTTP
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: where-for-dinner
+  namespace: #@ data.values.workloadNamespace
+spec:
+  gateways:
+  - where-for-dinner
+  hosts:
+  - #@ 'hungryman.' + data.values.domainName
+  http:
+  - match:
+    - port: 80
+    route:
+    - destination:
+        host: where-for-dinner
+        port:
+          number: 8080
