@@ -8,24 +8,24 @@ metadata:
   generation: 1
   labels:
     app.kubernetes.io/component: deliverable
-    app.kubernetes.io/part-of: hungryman
+    app.kubernetes.io/part-of: where-for-dinner-crawler
     app.tanzu.vmware.com/deliverable-type: web
     apps.tanzu.vmware.com/workload-type: server
     carto.run/cluster-template-name: deliverable-template
     carto.run/resource-name: deliverable
     carto.run/supply-chain-name: source-to-url
     carto.run/template-kind: ClusterTemplate
-    carto.run/workload-name: hungryman-crawler
+    carto.run/workload-name: where-for-dinner-crawler
     carto.run/workload-namespace: #@ data.values.workloadNamespace
     networking.knative.dev/visibility: cluster-local
-  name: hungryman-crawler
+  name: where-for-dinner-crawler
   namespace: #@ data.values.workloadNamespace
 spec:
   params:
   - name: gitops_ssh_secret
     value: #@ data.values.gitOpsSecret
   - name: gitops_sub_path
-    value: config/workloads/hungryman-crawler
+    value: config/workloads/where-for-dinner-crawler
   source:
     git:
       ref:
